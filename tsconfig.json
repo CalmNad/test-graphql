@@ -1,0 +1,33 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		"target": "es2018",
+		"module": "commonjs",
+		"lib": ["es2018", "esnext.asynciterable"],
+		"sourceMap": true,
+		"outDir": "./dist",
+		"rootDir": "src",
+		"baseUrl": "./",
+		"composite": false,
+		"noImplicitAny": true,
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"declaration": true,
+		"removeComments": true,
+		"incremental": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"allowSyntheticDefaultImports": false,
+		"skipLibCheck": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"forceConsistentCasingInFileNames": true
+	},
+	"exclude": ["node_modules", "dist"],
+	"include": ["./src/**/*.tsx", "./src/**/*.ts"]
+}
