@@ -17,4 +17,9 @@ export class AuthorRepoPostgre implements IAuthorRepo {
 	async create(author: Partial<IAuthor>): Promise<IAuthor> {
 		return await this.authorRepo.save(this.authorRepo.create(author));
 	}
+
+	async update(id: number, author: Partial<IAuthor>): Promise<IAuthor> {
+		await this.authorRepo.update(id, author);
+		return await this.authorRepo.findOneOrFail(id);
+	}
 }

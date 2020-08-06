@@ -6,6 +6,7 @@ import { IAuthorRepo, TokenAuthorRepo } from ".";
 
 export interface IAuthorService {
 	create(author: Partial<IAuthor>): Promise<IAuthor>;
+	update(id: number, author: Partial<IAuthor>): Promise<IAuthor>;
 }
 
 export const TokenAuthorService = new Token<IAuthorService>();
@@ -18,5 +19,9 @@ export class AuthorService implements IAuthorService {
 
 	async create(author: Partial<IAuthor>): Promise<IAuthor> {
 		return this.authorRepo.create(author);
+	}
+
+	async update(id: number, author: Partial<IAuthor>): Promise<IAuthor> {
+		return this.authorRepo.update(id, author);
 	}
 }

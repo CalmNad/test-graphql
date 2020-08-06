@@ -21,8 +21,14 @@ export class AuthorResolver {
 	async createAuthor(
 		@Arg("data", () => AuthorInput) data: AuthorInput,
 	): Promise<IAuthor> {
-		const rs = await this.authorService.create(data);
-		console.log("rs:", rs);
-		return rs;
+		return await this.authorService.create(data);
+	}
+
+	@Mutation(() => Author)
+	async updateAuthor(
+		@Arg("id") id: number,
+		@Arg("data", () => AuthorInput) data: AuthorInput,
+	): Promise<IAuthor> {
+		return await this.authorService.update(id, data);
 	}
 }

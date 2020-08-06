@@ -1,7 +1,5 @@
 # TODO
 
--   ADD: author:create
--   ADD: author:update
 -   ADD: book:create
 -   ADD: book:update
 -   CHK: book:read
@@ -17,3 +15,4 @@
 -   TBD: naming of domain's files
 -   TBD: naming Token<...>
 -   TBD: typeorm: separate schema
+-   TBD: уместность и места применения DTO
