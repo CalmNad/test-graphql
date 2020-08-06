@@ -1,4 +1,5 @@
 import {
+	BaseEntity,
 	Column,
 	Entity,
 	JoinColumn,
@@ -10,7 +11,7 @@ import { IBook } from "../../domain";
 import { Author } from "./author.entity";
 
 @Entity("books")
-export class Book implements IBook {
+export class Book extends BaseEntity implements IBook {
 	@PrimaryGeneratedColumn()
 	readonly bookId!: number;
 

@@ -2,16 +2,17 @@ import "reflect-metadata";
 import { ApolloServer } from "apollo-server";
 import * as TypeORM from "typeorm";
 import * as path from "path";
-import { buildSchema } from "type-graphql";
+// import { buildSchema } from "type-graphql";
 import { Container } from "typedi";
 
 // tslint:disable-next-line
 import {
 	AuthorRepoPostgre,
 	BookRepoPostgre,
-} from "./library-module/repositories";
+} from "./modules/library/repositories";
 
-import { AuthorResolver, BookResolver } from "./library-module/graphql";
+// import { AuthorResolver, BookResolver } from "./modules/library/graphql";
+import { createSchema } from "./utils";
 
 require("dotenv").config({
 	path: path.resolve(process.cwd(), `.env.${process.env.TIER}`),
@@ -29,7 +30,7 @@ async function bootstrap() {
 			password: process.env.POSTGRES_PASSWORD,
 			database: process.env.POSTGRES_DB,
 			entities: [
-				__dirname + "/library-module/repositories/**/*.entity{.ts,.js}",
+				__dirname + "/modules/**/repositories/**/*.entity{.ts,.js}",
 			],
 			synchronize: process.env.TYPEORM_SYNCHRONIZE === "true",
 			dropSchema: process.env.TYPEORM_DROPSCHEMA === "true",
@@ -42,11 +43,12 @@ async function bootstrap() {
 		Container.get(AuthorRepoPostgre);
 
 		// build TypeGraphQL executable schema
-		const schema = await buildSchema({
-			resolvers: [AuthorResolver, BookResolver],
-			emitSchemaFile: path.resolve(__dirname, "schema.gql"), // automatically create `schema.gql` file with schema definition in current folder
-			container: Container,
-		});
+		const schema = await createSchema();
+		// buildSchema({
+		// 	resolvers: [AuthorResolver, BookResolver],
+		// 	emitSchemaFile: path.resolve(__dirname, "schema.gql"), // automatically create `schema.gql` file with schema definition in current folder
+		// 	container: Container,
+		// });
 
 		// Create GraphQL server
 		const server = new ApolloServer({
