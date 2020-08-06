@@ -1,11 +1,12 @@
-import { Resolver, Mutation, InputType, Field, Arg } from "type-graphql";
+import { Arg, Field, InputType, Mutation, Resolver } from "type-graphql";
 import { Inject } from "typedi";
 
-import { Author } from "./models";
 import { IAuthor, IAuthorService, TokenAuthorService } from "../domain";
 
+import { Author } from "./models";
+
 @InputType()
-class AuthorInput implements Partial<IAuthor> {
+class AuthorDTO implements Partial<IAuthor> {
 	@Field()
 	name!: string;
 }
@@ -19,7 +20,7 @@ export class AuthorResolver {
 
 	@Mutation(() => Author)
 	async createAuthor(
-		@Arg("data", () => AuthorInput) data: AuthorInput,
+		@Arg("data", () => AuthorDTO) data: AuthorDTO,
 	): Promise<IAuthor> {
 		return await this.authorService.create(data);
 	}
@@ -27,7 +28,7 @@ export class AuthorResolver {
 	@Mutation(() => Author)
 	async updateAuthor(
 		@Arg("id") id: number,
-		@Arg("data", () => AuthorInput) data: AuthorInput,
+		@Arg("data", () => AuthorDTO) data: AuthorDTO,
 	): Promise<IAuthor> {
 		return await this.authorService.update(id, data);
 	}

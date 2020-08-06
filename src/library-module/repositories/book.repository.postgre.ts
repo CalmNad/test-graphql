@@ -14,6 +14,20 @@ export class BookRepoPostgre implements IBookRepo {
 		private bookRepo: Repository<Book>,
 	) {}
 
+	async create(book: Partial<IBook>): Promise<IBook> {
+		const newBook: IBook = await this.bookRepo.save(
+			this.bookRepo.create(book),
+		);
+		return await this.bookRepo.findOneOrFail(newBook.bookId, {
+			relations: ["author"],
+		});
+	}
+
+	async update(id: number, book: Partial<IBook>): Promise<IBook> {
+		await this.bookRepo.update(id, book);
+		return await this.bookRepo.findOneOrFail(id, { relations: ["author"] });
+	}
+
 	async findAll(): Promise<IBook[]> {
 		return await this.bookRepo.find({ relations: ["author"] });
 	}
