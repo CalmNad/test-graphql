@@ -8,7 +8,7 @@ import { Book } from "./entities";
 export { TokenBookRepo };
 
 @Service(TokenBookRepo)
-export class BookRepoMemory implements IBookRepo {
+export class BookRepoPostgre implements IBookRepo {
 	constructor(
 		@InjectRepository(Book)
 		private bookRepo: Repository<Book>,

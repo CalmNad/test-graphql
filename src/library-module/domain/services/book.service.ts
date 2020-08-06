@@ -16,15 +16,5 @@ export class BookService implements IBookService {
 
 	async findAll(): Promise<IBook[]> {
 		return this.bookRepo.findAll();
-		// return [
-		// 	plainToClass(Book, {
-		// 		bookId: 3,
-		// 		name: "Book 3",
-		// 		pageCount: 120,
-		// 		authorId: 2,
-		// 	}),
-		// ];
 	}
 }
-
-// console.log(".............................", Container.get(TokenBookService));

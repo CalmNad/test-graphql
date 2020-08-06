@@ -6,9 +6,12 @@ import { buildSchema } from "type-graphql";
 import { Container } from "typedi";
 
 // tslint:disable-next-line
-import { BookRepoMemory } from "./library-module/repositories";
+import {
+	AuthorRepoPostgre,
+	BookRepoPostgre,
+} from "./library-module/repositories";
 
-import { BookResolver } from "./library-module/graphql";
+import { AuthorResolver, BookResolver } from "./library-module/graphql";
 
 require("dotenv").config({
 	path: path.resolve(process.cwd(), `.env`),
@@ -35,13 +38,12 @@ async function bootstrap() {
 			cache: true,
 		});
 
-		console.log("C1:", Container);
-		Container.get(BookRepoMemory);
-		console.log("C2:", Container);
+		Container.get(BookRepoPostgre);
+		Container.get(AuthorRepoPostgre);
 
 		// build TypeGraphQL executable schema
 		const schema = await buildSchema({
-			resolvers: [BookResolver],
+			resolvers: [AuthorResolver, BookResolver],
 			emitSchemaFile: path.resolve(__dirname, "schema.gql"), // automatically create `schema.gql` file with schema definition in current folder
 			container: Container,
 		});

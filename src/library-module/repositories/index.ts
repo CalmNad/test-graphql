@@ -1,1 +1,2 @@
-export * from "./book.repository.memory";
+export * from "./author.repository.postgre";
+export * from "./book.repository.postgre";
