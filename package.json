@@ -6,19 +6,24 @@
 	"scripts": {
 		"build": "tsc --build tsconfig.json",
 		"build:clean": "npm run build -- --clean",
-		"start": "nodemon -w src --ext ts --exec ts-node src/index.ts",
+		"start:dev": "sudo TIER=dev docker-compose -f docker-compose.db.yml up -d && TIER=dev nodemon -w src --ext ts --exec ts-node src/index.ts && sudo TIER=dev docker-compose -f docker-compose.db.yml down",
 		"typeorm": "TIER=dev node --require ts-node/register ./node_modules/typeorm/cli.js --config ormconfig.ts",
-		"compose:db": "sudo docker-compose -f docker-compose.db.yml up"
+		"compose:db:dev": "sudo TIER=dev docker-compose -f docker-compose.db.yml up",
+		"compose:db:test": "sudo TIER=test docker-compose -f docker-compose.db.yml up",
+		"test": "sudo TIER=test docker-compose -f docker-compose.db.yml up -d && TIER=test jest --coverage && sudo TIER=test docker-compose -f docker-compose.db.yml down"
 	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"@types/jest": "^26.0.9",
 		"apollo-server": "^2.16.1",
 		"class-transformer": "^0.3.1",
 		"class-validator": "^0.12.2",
 		"graphql": "^15.3.0",
+		"jest": "^26.2.2",
 		"pg": "^8.3.0",
 		"reflect-metadata": "^0.1.13",
+		"ts-jest": "^26.1.4",
 		"type-graphql": "^1.0.0-rc.3",
 		"typedi": "^0.8.0",
 		"typeorm": "^0.2.25",

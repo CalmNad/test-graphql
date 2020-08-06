@@ -14,7 +14,7 @@ import {
 import { AuthorResolver, BookResolver } from "./library-module/graphql";
 
 require("dotenv").config({
-	path: path.resolve(process.cwd(), `.env`),
+	path: path.resolve(process.cwd(), `.env.${process.env.TIER}`),
 });
 
 async function bootstrap() {

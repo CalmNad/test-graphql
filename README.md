@@ -1,3 +1,10 @@
+# Init
+
+```bash
+# create .env.dev with config's data
+cp .env-template .env.dev
+```
+
 # TODO
 
 -   CHK: book:read

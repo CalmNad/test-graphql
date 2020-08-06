@@ -3,13 +3,13 @@ version: "3.7"
 services:
     db:
         image: postgres
-        container_name: test-graphql-db
+        container_name: test-graphql-db-${TIER}
         restart: always
-        env_file: .env
+        env_file: .env.${TIER}
         ports:
             - 5432:5432
         volumes:
-            - ./data-pg:/var/lib/postgresql/data
+            - ./data-pg-${TIER}:/var/lib/postgresql/data
         networks:
             - apinet
 
