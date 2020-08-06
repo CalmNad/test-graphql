@@ -19,7 +19,9 @@
 
 ```bash
 # create .env.dev with config's data
+# !отредактировать созданные файлы, изменив хотя бы имя DB
 cp .env-template .env.dev
+cp .env-template .env.test
 
 # run tests
 npm run test
