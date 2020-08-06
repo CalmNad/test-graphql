@@ -70,7 +70,7 @@ export class BookResolver {
 	}
 
 	@Query(() => [Book], { description: "Get all the books" })
-	async findBooks(): Promise<Book[]> {
+	async books(): Promise<Book[]> {
 		return await this.bookService.findAll();
 	}
 

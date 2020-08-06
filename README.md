@@ -61,7 +61,7 @@ mutation {
 }
 
 {
-  findBooks {
+  books {
     bookId
     name
     authorId
