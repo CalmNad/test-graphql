@@ -5,6 +5,7 @@
 -   TDD не использовался, т.к. слишком много материала было "в новинку".
 -   Тесты писал интеграционные (проверка всей цепочки от входа API до DB).
 -   DB разворачивается docker-ом, и пробрасывается на стандартный порт 5432.
+-   Получение автора реализовал двумя методами, через relations в DB entity (поле author) и через fieldResolver (поле authorByResolver).
 -   Разделение сущностей на трио: GraphQL, Domain, Repository (typeorm) - для уменшения связанности и возможности "мокать" любую часть.
 -   Не сделал, если важно для оценки - дополню:
     -   валидацию;
@@ -61,6 +62,15 @@ mutation {
   findBooks {
     bookId
     name
+    authorId
+    author {
+      authorId
+      name
+    }
+    authorByResolver {
+      authorId
+      name
+    }
   }
 }
 
@@ -92,6 +102,7 @@ mutation {
     }
   }
 }
+
 ```
 
 # TODO
@@ -100,7 +111,6 @@ mutation {
 -   ADD: correct error processing
 -   ADD: validation (class-validator)
 -   ADD: Dockerfile
--   TBD: fieldResolver
 -   TBD: naming of domain's files
 -   TBD: naming Token<...>
 -   TBD: typeorm: separate schema

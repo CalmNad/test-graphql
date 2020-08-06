@@ -1,17 +1,25 @@
 import {
 	Arg,
 	Field,
+	FieldResolver,
 	InputType,
 	Int,
 	Mutation,
 	Query,
 	Resolver,
+	Root,
 } from "type-graphql";
 import { Inject } from "typedi";
 
-import { IBook, IBookService, TokenBookService } from "../domain";
+import {
+	IBook,
+	IBookService,
+	TokenBookService,
+	TokenAuthorService,
+	IAuthorService,
+} from "../domain";
 
-import { Book } from "./models";
+import { Author, Book } from "./models";
 
 @InputType()
 class BookCreateDTO implements Partial<IBook> {
@@ -37,10 +45,13 @@ class BookUpdateDTO implements Partial<IBook> {
 	authorId?: number;
 }
 
-@Resolver()
+// @ts-ignore
+@Resolver((of) => Book)
 export class BookResolver {
 	constructor(
 		@Inject(TokenBookService) private readonly bookService: IBookService,
+		@Inject(TokenAuthorService)
+		private readonly authorService: IAuthorService,
 	) {}
 
 	@Mutation(() => Book)
@@ -61,5 +72,11 @@ export class BookResolver {
 	@Query(() => [Book], { description: "Get all the books" })
 	async findBooks(): Promise<Book[]> {
 		return await this.bookService.findAll();
+	}
+
+	@FieldResolver(() => Author)
+	async authorByResolver(@Root() book: Book) {
+		const author = await this.authorService.findById(book.authorId);
+		return author;
 	}
 }

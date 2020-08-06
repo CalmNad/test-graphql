@@ -22,4 +22,8 @@ export class AuthorRepoPostgre implements IAuthorRepo {
 		await this.authorRepo.update(id, author);
 		return await this.authorRepo.findOneOrFail(id);
 	}
+
+	async findById(id: number): Promise<IAuthor> {
+		return this.authorRepo.findOneOrFail(id);
+	}
 }
